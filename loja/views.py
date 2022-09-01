@@ -44,7 +44,7 @@ def perfil(request):
 def cart(request, username):
     u = User.objects.get(username=username)
     cart = Cart.objects.filter(username = u)
-    template = loader.get_template('loja/cart.html')
+    template = loader.get_template('/loja/cart.html')
     context = {
         'cart': cart,
     }
