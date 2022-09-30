@@ -110,3 +110,9 @@ def checkout(request, username):
         'total' : total,
     }
     return HttpResponse(template.render(context, request))
+
+
+def submit_payment(request):
+    query_dict = request.body
+    print(query_dict)
+    return redirect('/loja')
