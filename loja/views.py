@@ -5,6 +5,10 @@ from django.template import loader
 from decimal import Decimal
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+import mercadopago
+import json
+import ast
+import requests
 
 def index(request):
     latest_produto_list = Produto.objects.order_by('id')
@@ -113,6 +117,18 @@ def checkout(request, username):
 
 
 def submit_payment(request):
-    query_dict = request.body
-    print(query_dict)
+
+    query_dict = request.body    
+    teste = ast.literal_eval(request.body.decode('utf-8'))
+    print("----------Payment info----------")
+    print("Card token: ", teste['token'])
+    print("Issuer ID: ", teste['issuer_id'])
+    print("Payment method: ", teste['payment_method_id'])
+    print("Transaction amount: ", teste['transaction_amount'])
+    print("Installments: ", teste['installments'])
+    print("----------Payer info----------")
+    print("Payer email: ", teste['payer']['email'])
+    print("Payer identification type: ", teste['payer']['identification']['type'])
+    print("Payer identification number: ", teste['payer']['identification']['number'])
+    
     return redirect('/loja')
